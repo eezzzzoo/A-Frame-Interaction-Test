@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name = "description" content = "A-Frame Test Project">
+        <script src = "https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+        <script src="https://unpkg.com/aframe-event-set-component@5.x.x/dist/aframe-event-set-component.min.js"></script> 
+    </head>
+    <body>
+        <a-scene physics = "gravity: -12; restitution: 0.5">
+            <!-- ASSETS -->
+            <a-assets>
+                <img id = "concrete" src = "assets/concrete.jpg">
+                <img id = "berg" src = "assets/berg.jpeg">
+                <img id = "instructions" src = "assets/instructions.png">
+                <img id = "credits" src = "assets/credits.png">
+                <a-asset-item id = "bison-o" src = "assets/BisonPlains.obj"></a-asset-item>
+                <a-asset-item id = "bison-m" src = "assets/BisonPlains.mtl"></a-asset-item>
+                <a-asset-item id = "coati-o" src = "assets/Coati.obj"></a-asset-item>
+                <a-asset-item id = "coati-m" src = "assets/Coati.mtl"></a-asset-item>
+            </a-assets>
+
+            <!-- CAMERA -->
+            <a-camera 
+                position = "0 3 0" 
+                active = "true">
+                <a-entity cursor
+                    position = "0 0 -1"
+                    geometry = "primitive: sphere; radius: 0.005"
+                    material = "color: #FFFFFF; shader: flat">
+                </a-entity>
+            </a-camera>
+            <a-camera 
+                position = "0 10 0" 
+                active = "false">
+            </a-camera>
+
+            <!-- SKYBOX -->
+            <a-sky 
+                radius = "50" 
+                color = "#101010" 
+                repeat = "50 50">
+            </a-sky>
+
+            <!-- FLOOR -->
+            <a-plane 
+                scale = "100 100 1" 
+                rotation = "-90 0 0" 
+                src = "#concrete" 
+                repeat = "100 100" 
+                shadow = "receive: true">
+            </a-plane>
+
+            <!-- OBJECTS -->
+            <!-- Instructions-->
+            <a-image
+                src = "#instructions"
+                position = "-3 2 -3"
+                rotation = "0 30 0"
+                scale = "1.2 1 1">
+            </a-image>
+            <a-image
+                src = "#credits"
+                position = "3 2 -3"
+                rotation = "0 -30 0"
+                scale = "1 0.5 0">
+            </a-image>
+
+            <!-- Buttons -->
+            <a-entity
+                position = "0 1.5 -5"
+                scale = "0.25 0.25 0.25">
+                <a-sphere
+                    position = "-8 0 0"
+                    src = "#concrete"
+                    event-set__enter = "_event: mouseenter; _target: #ball-light; light.intensity: 15"
+                    event-set__leave = "_event: mouseleave; _target: #ball-light; light.intensity: 0.1"
+                    event-set__enter2 = "_event: mouseenter; _target: #ball; material.src: #berg"
+                    event-set__leave2 = "_event: mouseleave; _target: #ball; material.src: #concrete"
+                    event-set__enter3 = "_event: mouseenter; _target: #this-light; light.intensity: 0.1"
+                    event-set__leave3 = "_event: mouseleave; _target: #this-light; light.intensity: 5"
+                    shadow = "cast: true">
+                </a-sphere>
+                <a-sphere
+                    position = "0 0 0"
+                    src = "#concrete"
+                    event-set__enter = "_event: mouseenter; _target: #prism-light; light.intensity: 15"
+                    event-set__leave = "_event: mouseleave; _target: #prism-light; light.intensity: 0.1"
+                    event-set__enter2 = "_event: mouseenter; _target: #prism; material.src: #berg"
+                    event-set__leave2 = "_event: mouseleave; _target: #prism; material.src: #concrete"
+                    event-set__enter3 = "_event: mouseenter; _target: #this-light; light.intensity: 0.1"
+                    event-set__leave3 = "_event: mouseleave; _target: #this-light; light.intensity: 5"
+                    shadow = "cast: true">
+                </a-sphere>
+                <a-sphere
+                    position = "8 0 0"
+                    src = "#concrete"
+                    event-set__enter = "_event: mouseenter; _target: #pillar-light; light.intensity: 15"
+                    event-set__leave = "_event: mouseleave; _target: #pillar-light; light.intensity: 0.1"
+                    event-set__enter2 = "_event: mouseenter; _target: #pillar; material.src: #berg"
+                    event-set__leave2 = "_event: mouseleave; _target: #pillar; material.src: #concrete"
+                    event-set__enter3 = "_event: mouseenter; _target: #this-light; light.intensity: 0.1"
+                    event-set__leave3 = "_event: mouseleave; _target: #this-light; light.intensity: 5"
+                    shadow = "cast: true">
+                </a-sphere>
+            </a-entity>
+            <a-sphere
+                position = "5 0 5"
+                src = "#concrete"
+                event-set__enter = "_event: mouseenter; _target: #coati-light; light.intensity: 15"
+                event-set__leave = "_event: mouseleave; _target: #coati-light; light.intensity: 0"
+                shadow = "cast: true">
+            </a-sphere>
+            <a-sphere
+                radius = "0.25"
+                position = "-4 5 3"
+                src = "#concrete"
+                event-set__enter = "_event: mouseenter; _target: #bison-light; light.intensity: 15"
+                event-set__leave = "_event: mouseleave; _target: #bison-light; light.intensity: 0"
+                shadow = "cast: true">
+            </a-sphere>
+
+            <!-- Shapes -->
+            <a-sphere
+                id = "ball"
+                radius = "1"
+                position = "-10 1.5 -20"
+                src = "#concrete"
+                repeat = "3 1"
+                animation = "property: rotation; to: 0 360 0; dur: 10000; easing: linear; loop: true"
+                shadow = "cast: true">
+            </a-sphere>
+            <a-box
+                id = "prism"
+                scale = "1.2 2.0 1.2"
+                position = "0 1.5 -20"
+                src = "#concrete"
+                animation = "property: rotation; to: 0 360 0; dur: 10000; easing: linear; loop: true"
+                shadow = "cast: true">
+            </a-box>
+            <a-cylinder
+                id = "pillar"
+                scale = "1 2 1"
+                position = "10 1.5 -20"
+                src = "#concrete"
+                repeat = "3 1"
+                animation = "property: rotation; to: 0 360 0; dur: 10000; easing: linear; loop: true"
+                shadow = "cast: true">
+            </a-cylinder>
+            
+            <!-- SECRETS -->
+            <a-entity
+                id = "coati"
+                obj-model = "obj: #coati-o; mtl: #coati-m"
+                scale = "0.2 0.2 0.2"
+                rotation = "0 -135 0"
+                position = "5 1 5"
+                shadow = "cast: true">
+            </a-entity>
+            <a-entity 
+                id = "bison"
+                obj-model = "obj: #bison-o; mtl: #bison-m" 
+                material = "color: #000000; shader: flat"
+                scale = "0.075 0.075 0.075" 
+                position = "-15 0 30" 
+                animation = "property: rotation; to: 0 360 0; easing: linear; dur: 500; loop: true"
+                shadow = "cast: true">
+            </a-entity>
+
+            <!-- LIGHTING -->
+            <a-entity 
+                light = "type: ambient; intensity: 0.02">
+            </a-entity>
+
+            <a-entity
+                id = "this-light"
+                light = "type: spot; intensity: 5; angle: 30; penumbra: 0.1; castShadow: true"
+                animation = "property: light.intensity; from: 0; to: 5; dur: 3000; easing: easeInExpo"
+                position = "0 8 -5"
+                rotation = "-90 0 0">
+            </a-entity>
+
+            <a-entity 
+                id = "ball-light"
+                light = "type: spot; intensity: 10; angle: 30; penumbra: 0.4; castShadow: true" 
+                animation = "property: light.intensity; from: 0; to: 0.1; dur: 3000; easing: easeInExpo"
+                position = "-10 4 -15" 
+                rotation = "-35 0 0"> 
+            </a-entity>
+
+            <a-entity 
+                id = "prism-light"
+                light = "type: spot; intensity: 10; angle: 30; penumbra: 0.1; castShadow: true" 
+                animation = "property: light.intensity; from: 0; to: 0.1; dur: 3000; easing: easeInExpo"
+                position = "0 4 -15" 
+                rotation = "-35 0 0"> 
+            </a-entity>
+
+            <a-entity 
+                id = "pillar-light"
+                light = "type: spot; intensity: 10; angle: 30; penumbra: 0.1; castShadow: true" 
+                animation = "property: light.intensity; from: 0; to: 0.1; dur: 3000; easing: easeInExpo"
+                position = "10 4 -15" 
+                rotation = "-35 0 0"> 
+            </a-entity>
+            
+            <a-entity
+                id = "coati-light"
+                light = "type: spot; intensity: 0; angle: 10; penumbra: 0.1; castShadow: true"
+                position = "5 5 5"
+                rotation = "-90 0 0">
+            </a-entity>
+
+            <a-entity
+                id = "bison-light"
+                light = "type: spot; intensity: 0; angle: 30; penumbra: 0.1; castShadow: true"
+                position = "-15 5 25"
+                rotation = "-120 0 0">
+            </a-entity>
+
+        </a-scene>
+    </body>
+</html>
